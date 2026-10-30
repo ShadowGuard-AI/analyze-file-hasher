@@ -3,6 +3,7 @@ import argparse
 import logging
 import pandas as pd
 import os
+import sys
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -23,15 +24,18 @@ def calculate_hash(file_path, hash_algorithm='sha256'):
             logging.error(f"File not found: {file_path}")
             return None
 
-        # Validate hash algorithm
-        if hash_algorithm not in hashlib.algorithms_available:
+        hash_algorithm = hash_algorithm.lower()
+        # Membership in algorithms_available is not enough on its own: it
+        # also lists the shake functions, whose hexdigest() needs a length
+        # argument this tool never supplies, so they can only fail later.
+        if hash_algorithm not in hashlib.algorithms_available or hash_algorithm.startswith("shake_"):
             logging.error(f"Invalid hash algorithm: {hash_algorithm}")
             return None
 
         hasher = hashlib.new(hash_algorithm)
         with open(file_path, 'rb') as file:
             while True:
-                chunk = file.read(4096)  # Read file in chunks to handle large files efficiently
+                chunk = file.read(4096)  # Any chunk size gives the same digest; 4096 just keeps memory flat on large files
                 if not chunk:
                     break
                 hasher.update(chunk)
@@ -84,7 +88,9 @@ def analyze_directory(directory_path, hash_algorithm='sha256'):
                 file_hash = calculate_hash(file_path, hash_algorithm)
                 if file_hash is not None:
                     file_data.append({'file_path': file_path, 'hash': file_hash})
-        return pd.DataFrame(file_data)
+        # Fixed columns so an empty directory still prints a headed table
+        # instead of a columnless empty frame.
+        return pd.DataFrame(file_data, columns=['file_path', 'hash'])
     except Exception as e:
         logging.error(f"Error analyzing directory {directory_path}: {e}")
         return None
@@ -116,6 +122,7 @@ def main():
             print(f"Hash of {args.file1}: {file_hash}")
         else:
             logging.error("Could not calculate hash.")
+            sys.exit(1)
 
     elif args.command == 'compare':
         if not args.file1 or not args.file2:
@@ -123,6 +130,7 @@ def main():
         are_equal = compare_hashes(args.file1, args.file2, args.algorithm)
         if are_equal is None:
             logging.error("Could not compare hashes.")
+            sys.exit(1)
         elif are_equal:
             print("Hashes are identical.")
         else:
@@ -136,6 +144,7 @@ def main():
             print(df.to_string())
         else:
             logging.error("Could not analyze the directory.")
+            sys.exit(1)
     else:
         parser.print_help()
 
