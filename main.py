@@ -8,6 +8,11 @@ import sys
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+def is_valid_hash_algorithm(hash_algorithm):
+    """Returns True only for algorithms this tool can actually use."""
+    name = str(hash_algorithm).lower()
+    return name in hashlib.algorithms_available and not name.startswith("shake_")
+
 def calculate_hash(file_path, hash_algorithm='sha256'):
     """Calculates the cryptographic hash of a file.
 
@@ -82,12 +87,18 @@ def analyze_directory(directory_path, hash_algorithm='sha256'):
             return None
         
         file_data = []
+        failed_files = []
         for filename in os.listdir(directory_path):
             file_path = os.path.join(directory_path, filename)
             if os.path.isfile(file_path):
                 file_hash = calculate_hash(file_path, hash_algorithm)
                 if file_hash is not None:
                     file_data.append({'file_path': file_path, 'hash': file_hash})
+                else:
+                    failed_files.append(file_path)
+        if failed_files:
+            logging.error(f"Could not hash {len(failed_files)} file(s) in {directory_path}: {failed_files}")
+            return None
         # Fixed columns so an empty directory still prints a headed table
         # instead of a columnless empty frame.
         return pd.DataFrame(file_data, columns=['file_path', 'hash'])
@@ -139,6 +150,9 @@ def main():
     elif args.command == 'analyze':
         if not args.directory:
             parser.error("The 'analyze' command requires --directory")
+        if not is_valid_hash_algorithm(args.algorithm):
+            logging.error(f"Invalid hash algorithm: {str(args.algorithm).lower()}")
+            sys.exit(1)
         df = analyze_directory(args.directory, args.algorithm)
         if df is not None:
             print(df.to_string())
