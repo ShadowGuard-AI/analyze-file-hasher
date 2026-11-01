@@ -10,6 +10,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def is_valid_hash_algorithm(hash_algorithm):
     """Returns True only for algorithms this tool can actually use."""
+    # algorithms_available depends on the OpenSSL build behind this
+    # Python, so the set of names accepted here varies by machine. A
+    # command that works on my box can be rejected on another for an
+    # algorithm neither of us misspelled.
     name = str(hash_algorithm).lower()
     return name in hashlib.algorithms_available and not name.startswith("shake_")
 
@@ -88,6 +92,10 @@ def analyze_directory(directory_path, hash_algorithm='sha256'):
         
         file_data = []
         failed_files = []
+        # listdir is one level only and the isfile check below skips
+        # subdirectories without a word, so analyze covers the files
+        # directly in the directory and nothing nested. The docstring
+        # above says all files; read it as all files at this level.
         for filename in os.listdir(directory_path):
             file_path = os.path.join(directory_path, filename)
             if os.path.isfile(file_path):
@@ -97,6 +105,10 @@ def analyze_directory(directory_path, hash_algorithm='sha256'):
                 else:
                     failed_files.append(file_path)
         if failed_files:
+            # One unreadable file discards the hashes that did succeed.
+            # I keep that all or nothing shape because a partial table
+            # looks complete at a glance, and a missing row is exactly
+            # the file someone later assumes was checked.
             logging.error(f"Could not hash {len(failed_files)} file(s) in {directory_path}: {failed_files}")
             return None
         # Fixed columns so an empty directory still prints a headed table
