@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="Rearing room in three depths: mulberry leaves shift beyond the doorway, silkworms feed in slow rhythm on the trays, a clock hand steps toward the feeding hour, and a loose silk thread lifts at the lower edge">
+<rect x="0" y="0" width="1200" height="300" fill="#092a28"/>
+<rect x="880" y="18" width="270" height="180" fill="#eee6c2"><animate attributeName="fill" values="#eee6c2;#e2d194;#eee6c2" dur="34s" repeatCount="indefinite"/></rect>
+<g fill="#5f7f3e">
+<g><animateTransform attributeName="transform" type="rotate" values="0 1010 40; 1.4 1010 40; 0 1010 40" dur="11s" repeatCount="indefinite"/><ellipse cx="1010" cy="42" rx="42" ry="20"/></g>
+<g><animateTransform attributeName="transform" type="rotate" values="0 1080 70; -1.2 1080 70; 0 1080 70" dur="13s" begin="2s" repeatCount="indefinite"/><ellipse cx="1080" cy="72" rx="36" ry="17"/></g>
+<ellipse cx="1136" cy="36" rx="30" ry="14"/>
+</g>
+<g>
+<g fill="#8a643c"><rect x="60" y="86" width="330" height="52"/><rect x="60" y="160" width="390" height="58"/></g>
+<g fill="#f4f1e6">
+<g><animateTransform attributeName="transform" type="translate" values="0,0; 0,-5; 0,0" dur="5s" repeatCount="indefinite"/><ellipse cx="130" cy="104" rx="26" ry="9"/></g>
+<g><animateTransform attributeName="transform" type="translate" values="0,0; 0,-5; 0,0" dur="6s" begin="1.4s" repeatCount="indefinite"/><ellipse cx="240" cy="106" rx="26" ry="9"/></g>
+<g><animateTransform attributeName="transform" type="translate" values="0,0; 0,-6; 0,0" dur="7s" begin="0.7s" repeatCount="indefinite"/><ellipse cx="170" cy="180" rx="30" ry="10"/></g>
+<g><animateTransform attributeName="transform" type="translate" values="0,0; 0,-4; 0,0" dur="16s" repeatCount="indefinite"/><ellipse cx="330" cy="178" rx="28" ry="10"/></g>
+</g>
+<g fill="#7fa055"><rect x="60" y="92" width="330" height="10"/><rect x="60" y="166" width="390" height="10"/></g>
+<g fill="#f4f1e6"><ellipse cx="560" cy="216" rx="17" ry="11"/><ellipse cx="592" cy="210" rx="17" ry="11"/><ellipse cx="624" cy="216" rx="17" ry="11"/><ellipse cx="576" cy="200" rx="17" ry="11"/><ellipse cx="608" cy="200" rx="17" ry="11"/></g>
+<path d="M560,232 L640,232 L628,262 L572,262 Z" fill="#966c3c"/>
+</g>
+<g transform="translate(520,58)"><circle r="30" fill="#f4f1e6" stroke="#6e4c2c" stroke-width="4"/><line x1="0" y1="0" x2="0" y2="-20" stroke="#6e4c2c" stroke-width="4"><animateTransform attributeName="transform" type="rotate" values="0; 6; 6; 12; 12" keyTimes="0;0.3;0.6;0.9;1" dur="40s" repeatCount="indefinite"/></line><line x1="0" y1="0" x2="14" y2="8" stroke="#6e4c2c" stroke-width="4"/></g>
+<g fill="#f8f2bc"><circle r="3"><animate attributeName="cx" values="900;1120" dur="19s" repeatCount="indefinite"/><animate attributeName="cy" values="60;150" dur="19s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0.8;0" keyTimes="0;0.2;1" dur="19s" repeatCount="indefinite"/></circle><circle r="2.4"><animate attributeName="cx" values="940;1160" dur="24s" begin="7s" repeatCount="indefinite"/><animate attributeName="cy" values="40;120" dur="24s" begin="7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0.7;0" keyTimes="0;0.2;1" dur="24s" begin="7s" repeatCount="indefinite"/></circle></g>
+<path d="M60,282 Q300,266 560,282 T1140,280" stroke="#d8d4c2" stroke-width="3" fill="none"><animate attributeName="d" values="M60,282 Q300,266 560,282 T1140,280; M60,278 Q300,272 560,278 T1140,284; M60,282 Q300,266 560,282 T1140,280" dur="8s" repeatCount="indefinite"/></path>
+</svg>
