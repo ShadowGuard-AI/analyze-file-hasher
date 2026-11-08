@@ -3,72 +3,71 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>analyze-file-hasher: The Silkworm's Mulberry Ledger</title>
-<meta name="description" content="analyze-file-hasher calculates and compares cryptographic hashes of files, naming SHA256 and MD5, for integrity verification.">
+<title>analyze-file-hasher: The Mint</title>
 <style>
-@font-face{font-family:'Average';src:url('fonts/Average.ttf') format('truetype');}
-@font-face{font-family:'Bitter';src:url('fonts/Bitter.ttf') format('truetype');}
-:root{--ink:#092a28;--teal:#124f4c;--river:#f4f1e6;--reed:#5f7f3e;--rust:#9a4a26}
-*{box-sizing:border-box}body{margin:0;background:var(--ink);color:#e9e6d8;font-family:'Bitter',serif;line-height:1.65}
-h1,h2{font-family:'Average',serif}
-.hero{padding:2rem 6vw 0;max-width:1080px;margin:0 auto}.hero img.banner{width:100%}.logo{width:150px}
-main{padding:0 6vw 3rem;max-width:1080px;margin:0 auto}
-nav{display:flex;gap:.7rem;flex-wrap:wrap;margin:1rem 0}
-.entrybtn{display:inline-block;background:var(--river);color:var(--teal);font-family:'Average',serif;text-decoration:none;padding:.7rem 1.3rem;border-top:3px solid var(--rust);border-radius:2px}
-.entrybtn:hover{background-image:repeating-linear-gradient(100deg,transparent 0 9px,rgba(18,79,76,.13) 9px 10px)}
-.entrybtn:active{transform:translateY(2px);color:#0b3b3a}
-.entrybtn:focus-visible{outline:3px solid var(--reed);outline-offset:-3px}
-.tray{background:var(--river);color:var(--ink);border:8px solid #7a5433;border-top-width:14px;border-radius:4px;padding:0 1.4rem 1.2rem;margin:1.6rem 0;background-image:repeating-linear-gradient(0deg,transparent 0 30px,rgba(70,110,160,.14) 30px 31px)}
-.tray h2{border-bottom:3px double var(--rust);padding-bottom:.4rem;color:var(--teal)}
-pre{background:var(--ink);color:#e9e6d8;padding:1rem;overflow-x:auto}
-a{color:#a8c686}a:before{content:'';display:inline-block;width:13px;height:9px;border-radius:60% 40% 60% 40%;background:var(--reed);margin-right:.45em;vertical-align:0}
-a:hover:before{background:#cfe0a8;transform:rotate(-24deg)}
-.entrybtn:before,nav a:before{content:none}
-.margin{color:var(--rust);font-style:italic}
-.leafrun{height:20px;margin:2rem 0;background:repeating-linear-gradient(115deg,var(--reed) 0 18px,#7fa055 18px 30px,var(--teal) 30px 44px,transparent 44px 54px);position:relative}
-.leafrun:after{content:'';position:absolute;left:38%;top:3px;width:22px;height:14px;border-radius:50%;background:var(--river)}
-footer{padding:1rem 6vw 2.4rem;max-width:1080px;margin:0 auto}
+@font-face { font-family: 'Paytone One'; src: url('fonts/PaytoneOne-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Source Sans 3'; src: url('fonts/SourceSans3-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'Source Sans 3'; src: url('fonts/SourceSans3-700.woff2') format('woff2'); font-weight: 700; }
+:root { --silver: #c9ccd1; --iron: #43474c; --navy: #1f2c4e; --gold: #c9a227; --paper: #eef0f3; --ink: #23262b; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Source Sans 3', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; }
+header.top { display: flex; justify-content: space-between; align-items: center; padding: 16px 28px; background: var(--iron); color: var(--paper); border-bottom: 5px solid var(--gold); }
+.wordmark { font-weight: 700; letter-spacing: .05em; }
+.proof { color: #ecd88a; font-size: .85rem; letter-spacing: .12em; text-transform: uppercase; }
+.hero { text-align: center; padding: 50px 22px 8px; }
+.hero img.logo { width: 170px; height: auto; border: 5px solid var(--iron); border-radius: 6px; }
+h1 { font-family: 'Paytone One', sans-serif; font-weight: 400; font-size: 2.6rem; margin: 18px 0 6px; color: var(--navy); }
+h2 { font-family: 'Paytone One', sans-serif; font-weight: 400; color: var(--navy); border-bottom: 3px solid var(--silver); padding-bottom: 5px; margin-top: 38px; }
+.tag { max-width: 43rem; margin: 0 auto; }
+.buttons { margin: 22px 0 6px; }
+.buttons a { display: inline-block; margin: 4px; padding: 11px 22px; background: var(--navy); color: #fff; font-weight: 700; text-decoration: none; border-radius: 4px; }
+.buttons a.alt { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+figure.wide { max-width: 1020px; margin: 24px auto; padding: 0 18px; }
+figure.wide img { width: 100%; height: auto; display: block; border: 1px solid var(--silver); }
+figcaption { color: #5c6067; font-size: .9rem; padding-top: 8px; text-align: center; }
+.strip { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; padding: 20px 18px; }
+.strip div { background: #fff; border: 1px solid var(--silver); border-top: 4px solid var(--gold); padding: 13px 18px; min-width: 180px; text-align: center; }
+.strip b { display: block; font-family: 'Paytone One', sans-serif; font-weight: 400; color: var(--navy); font-size: 1.1rem; }
+main { max-width: 880px; margin: 0 auto; padding: 8px 22px 30px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid var(--silver); padding: 8px 12px; text-align: left; vertical-align: top; }
+th { background: var(--iron); color: var(--paper); }
+code { background: #dde1e7; padding: 1px 6px; border-radius: 3px; }
+.hold { border-left: 5px solid var(--gold); background: #f4ecd2; padding: 13px 18px; }
+footer { text-align: center; padding: 24px 18px 32px; color: #5c6067; font-size: .9rem; border-top: 5px solid var(--gold); margin-top: 28px; }
 </style>
 </head>
 <body>
-<header class="hero">
-<img class="logo" src="assets/logo.png" alt="Finished cocoon of wound silk resting on a lobed mulberry leaf, one loose teal thread lifting off its tip">
-<img class="banner" src="assets/banner.png" alt="Silk farmhouse workroom with racks of feeding trays and the ledger open on the centre table, its right page headed analyze-file-hasher">
-<h1>analyze-file-hasher</h1>
-<p>The ledger opened flat. Reading moves down the left page, then down the right, the way an entry is written and then totalled.</p>
-<nav>
-<a class="entrybtn" href="#purpose">First entry: purpose</a>
-<a class="entrybtn" href="#starting">Second entry: starting</a>
-<a class="entrybtn" href="#parameters">Third entry: parameters</a>
-<a class="entrybtn" href="#outcomes">Fourth entry: outcomes</a>
-</nav>
-</header>
+<header class="top"><span class="wordmark">analyze-file-hasher</span><span class="proof">One gold proof</span></header>
+<section class="hero">
+<img class="logo" src="assets/logo.png" alt="Heavy iron mint press from the front with one freshly struck silver coin bearing a raised oak branch design on its lower die, plain navy cloth folded beneath the press bed">
+<h1>The Mint</h1>
+<p class="tag">A tool to calculate and compare cryptographic hashes (e.g., SHA256, MD5) of files for integrity verification. A struck coin proves itself against the die; a file proves itself against its hash, and two hashes either match in every line or they do not.</p>
+<p class="buttons"><a href="https://github.com/ShadowGuard-AI/analyze-file-hasher">View on GitHub</a> <a class="alt" href="https://github.com/ShadowGuard-AI/analyze-file-hasher#readme">Read the README</a></p>
+</section>
+<figure class="wide"><img src="assets/intro-banner.png" alt="Two struck silver coins close up edge to edge on the press bed under raking light, every raised line of their oak branch and laurel design in the same place on both, a gold proof coin soft behind them"><figcaption>Two silver coins edge to edge, every raised line in the same place on both.</figcaption></figure>
+<div class="strip">
+<div><b>SHA256</b>and MD5 hashes</div>
+<div><b>Calculate</b>and compare</div>
+<div><b>Integrity</b>verification of files</div>
+<div><b>pandas</b>the one requirement</div>
+</div>
 <main>
-<section class="tray" id="purpose"><h2>First entry: what the tool does</h2>
-<p>analyze-file-hasher calculates and compares cryptographic hashes of files, naming SHA256 and MD5 as its examples, for integrity verification, and the README places its focus under data analysis and reporting.</p>
-<p>This entry prints no sample hash string, no example pair of files, and no worked comparison, because the source offers none. The blank space after the entry is left visibly blank rather than filled with invented figures.</p>
-</section>
-<div class="leafrun"></div>
-<section class="tray" id="starting"><h2>Second entry: taking it in and running it</h2>
-<pre>git clone https://github.com/ShadowStrikeHQ/analyze-file-hasher
-./analyze-file-hasher [params]</pre>
-<p class="margin">Margin note, in rust ink: the clone line as written points at a different account name than the organisation that holds this repository, so a visitor sees the discrepancy here instead of discovering it in a failed terminal.</p>
-</section>
-<div class="leafrun"></div>
-<section class="tray" id="parameters"><h2>Third entry: the five parameters, ruled as five ledger lines</h2>
-<p><code>-h</code> shows a help message and exits.</p>
-<p><code>-f1</code> gives the path to the first file.</p>
-<p><code>-f2</code> gives the path to the second file, required for <span class="margin">The line in the source breaks off mid phrase at those words. What the second file is required for is not finished in the README, and the rest of this rule is left unwritten.</span></p>
-<p><code>-d</code> gives the path to the directory, required for <span class="margin">This line breaks off at the same point and is treated the same way.</span></p>
-<p><code>-a</code>: no description in the source. Its ledger line carries only the flag and those words.</p>
-</section>
-<div class="leafrun"></div>
-<section class="tray" id="outcomes"><h2>Fourth entry: outcomes and licence</h2>
-<p>Comparison for integrity verification is the stated end. No output format, match report, or mismatch warning is described anywhere in the README.</p>
-<p>Licence entry: Copyright (c) ShadowStrikeHQ, with no licence named, reproduced as written.</p>
-<p><a href="https://github.com/ShadowGuard-AI/analyze-file-hasher">The repository on GitHub</a></p>
-</section>
+<h2>What it does</h2>
+<p>The tool calculates and compares cryptographic hashes (e.g., SHA256, MD5) of files, for integrity verification. Usage, as the README gives it: <code>./analyze-file-hasher [params]</code>. Its one requirement is <code>pandas&gt;=2.1.0</code>.</p>
+<figure class="wide" style="padding:0;margin:18px 0;"><img src="assets/banner.png" alt="Iron mint press at the centre of an iron grey bench, two struck silver coins side by side in exact match below the die, one gold proof coin standing on navy cloth to one side, a short row of unstruck silver blanks at the frame edge"></figure>
+<h2>Parameters</h2>
+<table>
+<tr><th>Parameter</th><th>What the README says</th></tr>
+<tr><td><code>-h</code></td><td>Show help message and exit</td></tr>
+<tr><td><code>-f1</code></td><td>Path to the first file</td></tr>
+<tr><td><code>-f2</code></td><td>Path to the second file, required for </td></tr>
+<tr><td><code>-d</code></td><td>Path to the directory, required for </td></tr>
+<tr><td><code>-a</code></td><td>No description provided</td></tr>
+</table>
+<h2>Stated limits</h2>
+<div class="hold"><p>The parameter lines for <code>-f2</code> and <code>-d</code> both end mid phrase at the words required for, and <code>-a</code> is listed with no description provided. Those three gaps are carried exactly as the source leaves them, with nothing supplied to fill them. The licence line at the close of the README is a copyright line only, with no licence named.</p></div>
 </main>
-<footer><p>Theme: the silkworm's mulberry ledger. Type: Average for headings, Bitter for reading, both SIL Open Font License 1.1. No lettering reference was recorded for this project; lettering follows Average itself, modelled on field guide entries.</p></footer>
+<footer>analyze-file-hasher, struck and compared. Fonts: Paytone One and Source Sans 3, self-hosted under the SIL Open Font License.</footer>
 </body>
 </html>
