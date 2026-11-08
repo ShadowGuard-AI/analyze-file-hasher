@@ -1,11 +1,12 @@
-![Silkworm rearing room with nobody in it: nearest tray of chopped mulberry leaf and feeding worms in front, racks of trays and baskets of white cocoons behind, bright papered window and a mulberry branch at the open doorway, no text](intro-banner.png)
+![Two struck silver coins close up edge to edge on the press bed under raking light, every raised line of their oak branch and laurel design in the same place on both, a gold proof coin soft behind them](intro-banner.png)
 
 # analyze-file-hasher
 
-![Silk farmhouse workroom with racks of trays along both walls and the ledger open on the centre table, its right page headed analyze-file-hasher in brown ink](banner.png)
+![Iron mint press at the centre of an iron grey bench, two struck silver coins side by side in exact match below the die, one gold proof coin standing on navy cloth to one side, a short row of unstruck silver blanks at the frame edge](banner.png)
+
+<p align="center"><img src="logo.png" alt="Heavy iron mint press from the front with one freshly struck silver coin bearing a raised oak branch design on its lower die, plain navy cloth folded beneath the press bed" width="180"></p>
 
 ![Rearing room scene: mulberry leaves shift beyond the doorway, silkworms rise and settle in slow feeding rhythm on the trays, a clock hand steps toward the feeding hour, and a loose silk thread lifts at the lower edge](scene.svg)
-
 
 # analyze-file-hasher
 A tool to calculate and compare cryptographic hashes (e.g., SHA256, MD5) of files for integrity verification. - Focused on Data analysis and reporting

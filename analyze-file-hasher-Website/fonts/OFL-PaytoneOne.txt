@@ -1,8 +1,9 @@
-Copyright 2012 The Average Project Authors (https://github.com/etunni/average)
+Copyright 2011 The Paytone Project Authors (https://github.com/googlefonts/paytoneFont),
+with Reserved Font Names "Paytone" and "Paytone One".
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
-https://scripts.sil.org/OFL
+http://scripts.sil.org/OFL
 
 
 -----------------------------------------------------------
