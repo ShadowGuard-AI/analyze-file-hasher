@@ -7,9 +7,7 @@
 <p align="center"><img src="logo.png" alt="Heavy iron mint press from the front with one freshly struck silver coin bearing a raised oak branch design on its lower die, plain navy cloth folded beneath the press bed" width="180"></p>
 
 ![Rearing room scene: mulberry leaves shift beyond the doorway, silkworms rise and settle in slow feeding rhythm on the trays, a clock hand steps toward the feeding hour, and a loose silk thread lifts at the lower edge](scene.svg)
-
-# analyze-file-hasher
-A tool to calculate and compare cryptographic hashes (e.g., SHA256, MD5) of files for integrity verification. - Focused on Data analysis and reporting
+A tool to calculate and compare cryptographic hashes (e.g., SHA256, MD5) of files for integrity verification, focusing on automated data analysis and reporting
 
 ## Install
 `git clone https://github.com/ShadowStrikeHQ/analyze-file-hasher`
